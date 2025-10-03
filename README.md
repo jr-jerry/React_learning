@@ -46,3 +46,90 @@ When setting the value for attributes like `className`, we use a specific nestin
 >
     {product.item}
 </div>
+
+
+
+### 2. JSX (JavaScript XML)
+
+JSX is a syntax extension that allows writing HTML-like code inside JavaScript.
+
+| Context | Syntax | Environment Status |
+| :--- | :--- | :--- |
+| Default (Function Body) | `function App() { ... }` | Standard JavaScript (Logic, variables, functions) |
+| Entering JSX | `return ( ... );` | JSX Markup (UI structure) |
+| Escaping JSX | `{ expression }` | JavaScript Environment (dynamic content, variables, functions) |
+
+**Example:**
+```jsx
+const element = <h1>Hello, world!</h1>;
+
+
+const element = React.createElement("h1", null, "Hello, world!");
+
+
+### 3. ClassComponents
+
+  import React, { Component } from 'react';
+
+  class Welcome extends Component {
+    constructor(props) {
+      super(props);
+      this.state = { count: 0 };
+    }
+  
+    render() {
+      return (
+        <div>
+          <h1>Hello, {this.props.name}</h1>
+          <p>Count: {this.state.count}</p>
+          <button onClick={() => this.setState({ count: this.state.count + 1 })}>
+            Increment
+          </button>
+        </div>
+      );
+    }
+  }
+  
+  export default Welcome;
+
+ ### Updating State in class component
+
+  this.setState({ count: this.state.count + 1 });
+  or
+  this.setState(prevState => ({ count: prevState.count + 1 }));//better approach
+
+
+### React Life Cycle Methods
+
+  | Phase      | Method                      | Purpose                                           |
+| ---------- | --------------------------- | ------------------------------------------------- |
+| Mounting   | `constructor()`             | Initialize state, bind methods                    |
+| Mounting   | `render()`                  | Render JSX                                        |
+| Mounting   | `componentDidMount()`       | Runs after component mounts; useful for API calls |
+| Updating   | `shouldComponentUpdate()`   | Control re-rendering                              |
+| Updating   | `getSnapshotBeforeUpdate()` | Capture DOM info before update                    |
+| Updating   | `componentDidUpdate()`      | Runs after updates (called on re-render)          |
+| Unmounting | `componentWillUnmount()`    | Cleanup resources, timers, subscriptions          |
+| Error      | `componentDidCatch()`       | Catch errors in child components                  |
+
+
+### HigherOrderComponent
+
+  A HOC is a function that takes a component and returns a new, enhanced component.
+
+  const withExtraProps = (WrappedComponent) => {
+  return (props) => <WrappedComponent {...props} extraProp="Hello" />;
+};
+
+
+### Shadow Dom v/s Virtual Dom
+
+  | Feature                | Virtual DOM                              | Shadow DOM                     |
+| ---------------------- | ---------------------------------------- | ------------------------------ |
+| Purpose                | Performance optimization (React diffing) | Encapsulation (Web Components) |
+| Scope                  | In-memory JS object                      | Browser DOM subtree            |
+| Visibility in DevTools | No                                       | Yes (`#shadow-root`)           |
+| Analogy                | Draft paper                              | House with private rooms       |
+
+
+
